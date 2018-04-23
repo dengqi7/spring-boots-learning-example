@@ -1,0 +1,5 @@
+## home 属性
+home:
+    provance: 湖北省
+    city: 荆州市
+    desc: 我来自${home.provance}${home.city}

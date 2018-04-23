@@ -1,0 +1,11 @@
+## home 属性
+home:
+    provance: 四川省
+    city: 成都市
+    desc: 我来自${home.provance}${home.city}
+
+user:
+    id: ${random.long}
+    age: ${random.int[1,200]}
+    desc: 随机的说明是：${random.value}
+    uuid: ${random.uuid}
