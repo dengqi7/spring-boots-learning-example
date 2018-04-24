@@ -11,6 +11,7 @@
     <modules>
         <!--springboots 参数配置-->
         <module>springboots-properties</module>
+        <module>spring-boots-mybatis</module>
     </modules>
 
     <parent>
@@ -18,5 +19,9 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.5.1.RELEASE</version>
     </parent>
+
+
+
+
 
 </project>
