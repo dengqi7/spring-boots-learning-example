@@ -12,6 +12,7 @@
         <!--springboots 参数配置-->
         <module>springboots-properties</module>
         <module>spring-boots-mybatis</module>
+        <module>spring-boots-restfull</module>
     </modules>
 
     <parent>
