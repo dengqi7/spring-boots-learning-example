@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-boots-restfull</artifactId>
+    <artifactId>spring-boots-mybatis-extra</artifactId>
 
     <properties>
         <mybatis-spring-boot>1.2.0</mybatis-spring-boot>
@@ -69,6 +69,13 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.23</version>
+        </dependency>
+
+        <!--commen-->
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
         </dependency>
     </dependencies>
 

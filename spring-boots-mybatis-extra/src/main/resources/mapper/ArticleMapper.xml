@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dengqi7.mybatis.dao.ArticleMapper">
+	<resultMap id="BaseResultMap" type="com.dengqi7.mybatis.domain.Article">
+		<result column="id" property="id" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="create_date" property="createDate" />
+		<result column="create_time" property="createTime" />
+	</resultMap>
+
+	<parameterMap id="Article" type="com.dengqi7.mybatis.domain.Article"/>
+
+	<sql id="Base_Column_List">
+		id, title, content, create_date, create_time
+	</sql>
+
+
+	<select id="selectOne" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List"/>
+		from article
+		where id = #{id}
+	</select>
+
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from article
+	</select>
+
+	<insert id="insert" parameterMap="Article" useGeneratedKeys="true" keyProperty="id">
+		insert into article
+		values(#{id},#{title},#{content},#{createDate},#{createTime});
+	</insert>
+
+
+	<delete id="deleteById" parameterType="java.lang.Long" >
+		delete from article where id = #{id}
+	</delete>
+
+</mapper>

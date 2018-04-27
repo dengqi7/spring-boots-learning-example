@@ -13,6 +13,7 @@
         <module>springboots-properties</module>
         <module>spring-boots-mybatis</module>
         <module>spring-boots-restfull</module>
+        <module>spring-boots-mybatis-extra</module>
     </modules>
 
     <parent>
