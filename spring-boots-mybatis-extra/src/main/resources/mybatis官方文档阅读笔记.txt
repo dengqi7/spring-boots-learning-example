@@ -1,0 +1,71 @@
+4月26号
+
+一、xml配置
+1 略
+
+2 typeHandler 类型处理器
+2.1 自定义typeHandler
+	mybatis通过类型处理器来实现java数据类型与数据库数据类型之前的转换
+	可以自己建立typeHadler来转换指定的数据库类型，
+	@MappedTypes用来指定java类型，
+	@MappedJdbcTypes用来指定jdbc类型
+示例：
+	@MappedJdbcTypes(JdbcType.VARCHAR)
+	public class ExampleTypeHandler extends BaseTypeHandler<String> {...}
+	
+	添加配置文件：
+	<typeHandlers>
+		<typeHandler handler="org.mybatis.example.ExampleTypeHandler"/>
+	</typeHandlers>
+	
+2.2 关联关系如何初始化？
+	mybatis默认typeHandler是通过TypeHandlerRegistry实例化时的调用regist方法来保存javaType、jdbcType、typeHandler之间的关联关系，
+	1)三者关联关系保存在属性TYPE_HANDLER_MAP = new ConcurrentHashMap<Type, Map<JdbcType, TypeHandler<?>>>()中，
+	type为javaType,
+	map为jdbcType与对应的typeHandler，大部分的单一对应关系，jdbcType放的值是null，
+	只有String、Date等数据类型有个jdbcType对应关系，但其也有默认值
+	
+	2)jdbcType、typeHandler之间的关联关系，
+	JDBC_TYPE_HANDLER_MAP = new EnumMap<JdbcType, TypeHandler<?>>(JdbcType.class)
+	
+	3）另外，所有注册的typeHandler保存在ALL_TYPE_HANDLERS_MAP = new HashMap<Class<?>, TypeHandler<?>>()中，
+	class 对应一个typeHandler实体
+	
+	regist方法有多种实现，对应Class、String、注解
+
+2.4 resultMap中，typeHandler默认使用javaType(已知)+ jdbcType = null（未知时） 来选择typeHandler
+	
+2.5 字段为空时的处理
+	数据库字段可能为空时，必须在结果集映射中指定jdbcType，这样mybatis才能选择正确的typeHandler进行处理？？？
+	
+	实测，sql语句中没有加jdbc，值为空也可以处理，String、Date类型都可以正常insert。
+	原因：DefaultParameterHandler类中有如下代码
+	    if (value == null && jdbcType == null) {
+            jdbcType = configuration.getJdbcTypeForNull(); 
+          }
+	能给jdbcType赋默认值 OTHER(Types.OTHER),
+	
+	这样BaseTypeHandler中的这段代码就不会抛异常了
+	 if (parameter == null) {
+      if (jdbcType == null) {
+        throw new TypeException("JDBC requires that the JdbcType must be specified for all nullable parameters.");
+      }
+      try {
+        ps.setNull(i, jdbcType.TYPE_CODE);
+      } 
+	
+	
+3. 环境配置
+	SqlSessionFactory、transactionManager事务管理器、数据源dataSource（pooled有更多的配置）
+	可以自定义数据源
+	
+二、Sql映射文件	
+	一级节点：resultMap sql select update delete insert 
+	
+	resultMap解决联合查询sql生成复合实体对象的方式
+	
+	
+	
+	
+	
+	
