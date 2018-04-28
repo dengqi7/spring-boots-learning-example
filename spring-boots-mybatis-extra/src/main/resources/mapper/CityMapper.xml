@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dengqi7.mybatis.dao.CityMapper">
 	<resultMap id="BaseResultMap" type="com.dengqi7.mybatis.domain.City">
-		<result column="id" property="id" />
+		<id column="id" property="id" />
 		<result column="province_id" property="provinceId" />
 		<result column="city_name" property="cityName" />
 		<result column="description" property="description" />

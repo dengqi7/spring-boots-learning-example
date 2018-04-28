@@ -20,6 +20,7 @@ public class Article {
     private String content;
     private Date createDate;
     private Date createTime;
+    private long authorId;
 
     @Override
     public String toString() {
