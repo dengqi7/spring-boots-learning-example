@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dengqi7.mybatis.dao.AuthorMapper">
+	<resultMap id="BaseResultMap" type="com.dengqi7.mybatis.domain.Author">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="age" property="age" />
+		<result column="home_city_id" property="homeCityId" />
+	</resultMap>
+
+	<resultMap id="AuthorInfoResultMap" type="com.dengqi7.mybatis.domain.Author">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="age" property="age" />
+		<result column="home_city_id" property="homeCityId" />
+        <association property="city" javaType="City">
+            <id column="city_id" property=""/>
+            <result column="city_name" property="cityName" />
+            <result column="city_description" property="description" />
+        </association>
+	</resultMap>
+
+	<parameterMap id="Author" type="com.dengqi7.mybatis.domain.Author"/>
+    <parameterMap id="City" type="com.dengqi7.mybatis.domain.City"/>
+
+	<sql id="Base_Column_List">
+		id, name, age, home_city_id
+	</sql>
+
+
+	<select id="selectAuthorByInId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List"/>
+		from author
+		where id = #{id}
+	</select>
+
+	<select id="selectAuthorAllInfoById" resultMap="AuthorInfoResultMap">
+		select
+
+		from author a
+	</select>
+
+	<insert id="insert" parameterMap="Author" useGeneratedKeys="true" keyProperty="id">
+		insert into author
+		values(#{id},#{name},#{age},#{homeCityId});
+	</insert>
+
+
+	<delete id="delete" parameterType="java.lang.Long" >
+		delete from author where id = #{id}
+	</delete>
+
+</mapper>
