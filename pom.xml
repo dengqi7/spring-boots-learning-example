@@ -14,6 +14,7 @@
         <module>spring-boots-mybatis</module>
         <module>spring-boots-restfull</module>
         <module>spring-boots-mybatis-extra</module>
+        <module>spring-boots-anotation-mybatis</module>
     </modules>
 
     <parent>

@@ -17,7 +17,7 @@ public class CityController {
     @Autowired
     CityService cityService;
 
-    @PostMapping("/getCityInfoByName")
+    @PostMapping("/name/")
     public City findCityByName(@RequestParam(value="name",required = true) String name){
         System.out.println("入参：" + name);
         return cityService.findCityByName(name);

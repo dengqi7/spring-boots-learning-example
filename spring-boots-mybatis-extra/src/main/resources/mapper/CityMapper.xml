@@ -41,16 +41,17 @@
 
 	<update id="updateCity" parameterType="City">
 		update city
-		set
-		<if test="provinceId!=null">
-			province_id = #{provinceId},
-		</if>
-		<if test="cityName!=null">
-			city_name = #{cityName},
-		</if>
-		<if test="description!=null">
-			description = #{description}
-		</if>
+		<set>
+			<if test="provinceId!=0">
+				province_id = #{provinceId},
+			</if>
+			<if test="cityName!=null and cityName!=''">
+				city_name = #{cityName},
+			</if>
+			<if test="description!=null and description !=''">
+				description = #{description}
+			</if>
+		</set>
 		where id = #{id}
 	</update>
 

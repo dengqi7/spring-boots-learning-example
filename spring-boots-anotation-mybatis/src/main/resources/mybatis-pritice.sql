@@ -7,6 +7,7 @@ description varchar(100) default null comment '描述',
 primary key (id)
 )engine=innodb auto_increment=1  charset = utf8;
 
+select id , province_id as provinceId, city_name as cityName, description from city where id = #{id}
 
 
 --插入数据
@@ -18,7 +19,15 @@ primary key (id)
 
 {"cityName":null,"description":"故乡","id":5,"provinceId":5}
 
+{"cityName":"武汉","description":"武汉三镇","id":4,"provinceId":3}
+
 {"cityName":"深圳","description":"","id":5}
+{"cityName":"北京","id":1}
+{"cityName":"成都","id":2}
+{"cityName":"荆州","id":3}
+
+update city set city_name = '北京' where id = 1
+{"cityName":"成都","description":"","id":2}
 --文章表
 drop table if exists article;
 create table article(

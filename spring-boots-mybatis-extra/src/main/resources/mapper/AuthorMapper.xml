@@ -8,19 +8,58 @@
 		<result column="home_city_id" property="homeCityId" />
 	</resultMap>
 
-	<resultMap id="AuthorInfoResultMap" type="com.dengqi7.mybatis.domain.Author">
-		<id column="id" property="id" />
-		<result column="name" property="name" />
-		<result column="age" property="age" />
-		<result column="home_city_id" property="homeCityId" />
-        <association property="city" javaType="City">
-            <id column="city_id" property=""/>
-            <result column="city_name" property="cityName" />
-            <result column="city_description" property="description" />
-        </association>
-	</resultMap>
+    <!--关联嵌套结果查询方式一-->
+	<!--<resultMap id="AuthorInfoResultMap" type="com.dengqi7.mybatis.domain.Author">-->
+		<!--<id column="id" property="id" />-->
+		<!--<result column="name" property="name" />-->
+		<!--<result column="age" property="age" />-->
+		<!--<result column="home_city_id" property="homeCityId" />-->
+        <!--<association property="city" column="home_city_id" javaType="City">-->
+            <!--<id column="city_id" property="id"/>-->
+            <!--<result column="city_name" property="cityName" />-->
+            <!--<result column="city_description" property="description" />-->
+        <!--</association>-->
+	<!--</resultMap>-->
 
-	<parameterMap id="Author" type="com.dengqi7.mybatis.domain.Author"/>
+    <!--关联嵌套结果查询方式二-->
+    <resultMap id="AuthorInfoResultMap" type="com.dengqi7.mybatis.domain.Author" autoMapping="true">
+        <id column="id" property="id" />
+        <!--<result column="name" property="name" />自动映射测试-->
+        <result column="age" property="age" />
+        <result column="home_city_id" property="homeCityId" />
+        <association property="city" column="home_city_id" javaType="City" resultMap="cityResult"/>
+        <collection property="articleList" ofType="Article" resultMap="articleResult" columnPrefix="article_"/>
+    </resultMap>
+
+    <resultMap id="cityResult" type="com.dengqi7.mybatis.domain.City">
+        <id column="city_id" property="id"/>
+        <result column="city_name" property="cityName" />
+        <result column="city_description" property="description" />
+    </resultMap>
+
+    <resultMap id="articleResult" type="com.dengqi7.mybatis.domain.Article">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="content" property="content" />
+        <result column="create_date" property="createDate" />
+    </resultMap>
+
+    <!--嵌套查询,通过配置mybatis参数可以设置延迟加载开关以及懒加载策略-->
+    <!--<resultMap id="AuthorInfoResultMap" type="com.dengqi7.mybatis.domain.Author">-->
+        <!--<id column="id" property="id" />-->
+        <!--<result column="name" property="name" />-->
+        <!--<result column="age" property="age" />-->
+        <!--<result column="home_city_id" property="homeCityId" />-->
+        <!--<association property="city" column="home_city_id" javaType="City" select="selectCity">-->
+        <!--</association>-->
+    <!--</resultMap>-->
+
+    <!--<select id="selectCity">-->
+        <!--。。。-->
+    <!--</select>-->
+
+
+    <parameterMap id="Author" type="com.dengqi7.mybatis.domain.Author"/>
     <parameterMap id="City" type="com.dengqi7.mybatis.domain.City"/>
 
 	<sql id="Base_Column_List">
@@ -37,8 +76,20 @@
 
 	<select id="selectAuthorAllInfoById" resultMap="AuthorInfoResultMap">
 		select
-
-		from author a
+		a.id as id,
+		a.name as name,
+		a.age as age,
+        a.home_city_id as home_city_id,
+		b.id as article_id,
+		b.title as article_title,
+		b.content as article_content,
+		b.create_date as article_create_date,
+		c.city_name as city_name,
+		c.id as city_id,
+		c.description as city_description
+		from author a , article b ,city c where
+		a.home_city_id = c.id and a.id = b.author_id
+		and a.id = #{id}
 	</select>
 
 	<insert id="insert" parameterMap="Author" useGeneratedKeys="true" keyProperty="id">
