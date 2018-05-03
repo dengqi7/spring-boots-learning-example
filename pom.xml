@@ -16,6 +16,7 @@
         <module>spring-boots-mybatis-extra</module>
         <module>spring-boots-anotation-mybatis</module>
         <module>spring-boots-mybatis-generator</module>
+        <module>spring-boots-hot</module>
     </modules>
 
     <parent>

@@ -2,6 +2,8 @@ package com.dengqi7.mybatis.controller;
 
 import com.dengqi7.mybatis.domain.City;
 import com.dengqi7.mybatis.service.CityService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,16 +19,18 @@ public class CityController {
     @Autowired
     CityService cityService;
 
+    Logger logger = LoggerFactory.getLogger(CityController.class);
+
     @PostMapping("/getCityInfoByName")
     public City findCityByName(@RequestParam(value="name",required = true) String name){
-        System.out.println("入参：" + name);
+        logger.info("入参：" + name);
         return cityService.findCityByName(name);
     }
 
 
     @RequestMapping("/id/{id}")
     public City findCity(@PathVariable("id") Long id){
-        System.out.println("/id入参："+ id);
+        logger.info("/id入参："+ id);
         return cityService.findCitybyId(id);
     }
 
