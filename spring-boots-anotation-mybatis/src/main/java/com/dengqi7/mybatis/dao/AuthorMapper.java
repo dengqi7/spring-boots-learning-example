@@ -1,6 +1,7 @@
 package com.dengqi7.mybatis.dao;
 
 import com.dengqi7.mybatis.domain.Author;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -8,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
  * @author dengqi
  * @date 2018-04-28
  */
-public interface AuthorMapper {
+public interface AuthorMapper extends Mapper {
 
     Author selectAuthorByInId(@Param("id") long id);
 
