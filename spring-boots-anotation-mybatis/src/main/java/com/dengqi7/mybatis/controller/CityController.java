@@ -39,6 +39,7 @@ public class CityController {
     public String saveCity(@RequestBody City city){
         System.out.println("入仓:" + city.toString());
         cityService.addCityInfo(city);
+        System.out.println("id："+city.getId());
         return "保存成功";
     }
 

@@ -20,6 +20,7 @@ select id , province_id as provinceId, city_name as cityName, description from c
 {"cityName":null,"description":"故乡","id":5,"provinceId":5}
 
 {"cityName":"武汉","description":"武汉三镇","id":4,"provinceId":3}
+{"cityName":"广州","description":"羊城","provinceId":6}
 
 {"cityName":"深圳","description":"","id":5}
 {"cityName":"北京","id":1}

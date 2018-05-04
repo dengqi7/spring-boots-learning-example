@@ -12,6 +12,7 @@ import lombok.Setter;
  */
 public class City {
 
+
     private long id;
     private long provinceId;
     private String cityName;
