@@ -1,5 +1,7 @@
 package com.dengqi7.domain;
 
+import com.alibaba.fastjson.JSONObject;
+
 import javax.persistence.*;
 
 @Table(name = "city")
@@ -98,5 +100,10 @@ public class City {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return JSONObject.toJSONString(this);
     }
 }

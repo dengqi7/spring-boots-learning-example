@@ -10,7 +10,7 @@ import java.util.List;
  * @author dengqi
  * @date 2018-04-24
  */
-public interface CityMapper {
+public interface CityMapper{
 
     /**根据城市名称查询城市信息
      * @param cityName

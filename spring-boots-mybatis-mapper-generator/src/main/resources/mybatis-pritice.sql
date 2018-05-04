@@ -24,7 +24,7 @@ select id , province_id as provinceId, city_name as cityName, description from c
 {"cityName":"深圳","description":"","id":5}
 {"cityName":"北京","id":1}
 {"cityName":"成都","id":2}
-{"cityName":"荆州","id":3}
+{"cityName":"白螺","id":5}
 
 update city set city_name = '北京' where id = 1
 {"cityName":"成都","description":"","id":2}
