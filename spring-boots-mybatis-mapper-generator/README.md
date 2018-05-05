@@ -11,3 +11,6 @@ springboots日志、springboots热部署,springboots定时任务,通用mapper，
 1、mapper3.x中，mapper-..-starter会使mybatis的stater配置失效，所以MapperScan必须指定tk的，不能用mybatis原生的。
 2、MapperScan不使用，直接加Mapper注解也可行。
 3、使用Mapper以外的扩展街扩，必须配置mappers参数，否则无法使用。
+
+测试过了，还是因为mappers参数问题导致MysqlMapper无法使用。
+如果不能解决，还是不要用这个了。
