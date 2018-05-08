@@ -19,6 +19,7 @@
         <module>spring-boots-hot</module>
         <module>spring-boots-mybatis-mapper-generator</module>
         <module>spring-boots-multi-druid</module>
+        <module>spring-boots-mytatis-redis</module>
     </modules>
 
     <parent>

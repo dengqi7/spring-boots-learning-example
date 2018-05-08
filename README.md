@@ -9,3 +9,5 @@ a example project for springboots learning
 5、mybatis-mapper-generator，通用mapper组件的使用以及自动代码生成，但是mappers参数配不好，导致无法用除Mapper以外的其它接口。
 6、hot，springboots热部署以及scheduled定时的使用。
 
+7、multi-druid，多数据源配置
+

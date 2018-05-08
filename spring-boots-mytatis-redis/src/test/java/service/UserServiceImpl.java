@@ -1,6 +1,7 @@
-package com.dengqi7.druid.service;
+package service;
 
 import com.dengqi7.druid.Application;
+import com.dengqi7.druid.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
