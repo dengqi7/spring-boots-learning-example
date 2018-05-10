@@ -5,8 +5,11 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
@@ -25,27 +28,29 @@ public class SlaverDataSourceConfig {
 
     static final String MAPPER_LACATION = "classpath:mappers/slaver/*.xml";
 
-    @Value("${slaver.spring.datasource.driver-class-name}")
-    private String driverClass;
+    //@Value("${slaver.spring.datasource.driver-class-name}")
+    private String driverClassName;
 
-    @Value("${slaver.spring.datasource.username}")
+    //@Value("${slaver.spring.datasource.username}")
     private String userName;
 
-    @Value("${slaver.spring.datasource.password}")
+    //@Value("${slaver.spring.datasource.password}")
     private String password;
 
-    @Value("${slaver.spring.datasource.url}")
+    //@Value("${slaver.spring.datasource.url}")
     private String url;
 
 
     @Bean("slaverDateSource")
+    @ConfigurationProperties("spring.datasource.slaver")
     public DataSource slaverDateSource(){
-        DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setDriverClassName(driverClass);
-        dataSource.setUrl(url);
-        dataSource.setPassword(password);
-        dataSource.setUsername(userName);
-        return dataSource;
+        return DataSourceBuilder.create().type(DruidDataSource.class).build();
+        //DruidDataSource dataSource = new DruidDataSource();
+        //dataSource.setDriverClassName(driverClassName);
+        //dataSource.setUrl(url);
+        //dataSource.setPassword(password);
+        //dataSource.setUsername(userName);
+        //return dataSource;
     }
 
 
