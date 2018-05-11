@@ -37,3 +37,49 @@
     .......
 
 5、注解使用，缓存方法结果。
+    ...需要搭redis服务才能测
+
+
+第二部分：
+    redis设计与实现回顾：
+
+1.数据类型：strings、lists、Hashes、sets、sorted sets
+
+2、数据结构：
+    字符串strings  ： 数字型Long Float，字符串型 SDS（简单动态字符串）
+                     运用：   incrby、decrby，可作为计数器、奖金池使用
+
+    列表lists     ： 基于linked list，常数时间的插入以及列表首尾删除元素，常数时间长度内得到列表长度。最多2E32-1个元素，40亿
+                    指令：lpush、rpush、lrang、llen、ltrim、lpop、blpop
+                    场景运用：lpush、ltrim,维护一个元素数量指定的列表，并通过lrange得到前N个后者后N个元素，比如排名表；
+                             带阻塞的消息队列
+
+    集合sets     ：无序的字符串合集，最大的特性是元素值不重复，同时还有求交集、并集、差集的指令。
+                    指令：sadd、scard、sdiff、sinter、sunion、sismember
+                    运用：1、集合元素去重，
+                         2、tagging分类系统，用集合来表示单个tag，所有有改tag的对象的id用sadd加入集合中，遇到需要查找同时
+                            有3个tag的某个对象时，使用sinter指令即可；
+                         3、srangemember随机获取集合元素，spop随机删除元素。
+    hashes      ： key-value , 用来表示map或者对象
+                    指令：hset、hget、hdel、hincrby、hkeys、hvals、hlen
+
+    ZSet    ：
+
+3、数据结构与数据类型的对应关系
+    strings  ：
+    列表lists   ：
+    集合sets     ：
+    hash    ：
+    ZSet    ：
+
+4、redis持久化
+
+5、主备通信
+
+6、集群
+
+7、事务
+
+8、消息频道
+
+9、Redis哨兵（Sentinel）和自动 分区（Cluster）

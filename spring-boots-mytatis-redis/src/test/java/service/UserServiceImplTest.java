@@ -16,10 +16,7 @@ import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.BoundValueOperations;
-import org.springframework.data.redis.core.RedisOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.OxmSerializer;
@@ -88,7 +85,7 @@ public class UserServiceImplTest {
 
         ValueOperations valueOperations = redisTemplate.opsForValue();
         BoundValueOperations boundValueOperations = redisTemplate.boundValueOps("");
-
+        HashOperations hashOperations = redisTemplate.opsForHash();
         /**
          * 不同的序列器的序列化结果展示：
          */
