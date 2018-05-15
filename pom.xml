@@ -20,6 +20,7 @@
         <module>spring-boots-mybatis-mapper-generator</module>
         <module>spring-boots-multi-druid</module>
         <module>spring-boots-mytatis-redis</module>
+        <module>spring-boots-dubbo-7-client</module>
     </modules>
 
     <parent>
