@@ -1,6 +1,8 @@
 
 资料来源：http://redis.cn/
+
 1、redis与springboots集成，配置参数设置:
+
     SpringBoots默认注入的RedisConnectionFactory的实现类是JedisConnectionFactory;
     1）设置基础属性：host、port、password、timeout、database=0，默认usePool = true，useSsl = false;；
     2）afterPropertiesSet()方法：
@@ -12,16 +14,17 @@
     4）线程池参数注入GenericObjectPoolConfig中，前缀spring.redis.pool，max-idle、min-idle、max-wait等。
 
 2、spring-data-redis包下的redisTemple使用：
+
     1）afterPropertiesSet()方法：
         没有显示设置序列器的话，会设置默认序列化器JdkSerializationRedisSerializer
         四个设置序列器的属性：key、value、hashKey、hashValue。
-    +2）原始使用，默认使用jdk原生序列化方式，查看redis数据库里存储方式，long，String，Object，List
-    +3）配置不同的序列化器，查看存储方式的区别
+    2）原始使用，默认使用jdk原生序列化方式，查看redis数据库里存储方式，long，String，Object，List
+    3）配置不同的序列化器，查看存储方式的区别
         JdkSerializationRedisSerializer是原生的jdk的序列化方式；
         StringRedisSerializer是用String.getBytes()的方式完成序列化，存储的还是字符串，但不适用于对象型数据；
         Jackson2JsonRedisSerializer使用JsonMapper将对象转换成json字符串。
 
-    注意：针对数字(Long Double)的incrby 与decrby操作，使用jdk序列化无法完成，因为redis数据无法识别。StringRedisSerializer与
+      注意：针对数字(Long Double)的incrby 与decrby操作，使用jdk序列化无法完成，因为redis数据无法识别。StringRedisSerializer与
             Jackson2JsonRedisSerializer可以，存储的是数字字符串与数字。redis会自动将数字字符串转为数字类型。
 
          对于字符串，Jackson2JsonRedisSerializer序列化成json串时会加引号，需要反序列化才能去双引号。
@@ -45,6 +48,7 @@
     redis设计与实现回顾：
 
 1.数据类型：
+
     字符串string  ： 数字型Long Float，字符串型 SDS（简单动态字符串）
                      运用：   incrby、decrby，可作为计数器、奖金池使用
 
@@ -69,6 +73,7 @@
                          指令；zadd、zcard、zincrby、zrange、zrank、zrem、zscore
 
 2、数据结构：
+
     简单动态字符串SDS  ：有长度、free空间属性。优点：1、常数维度的字符串长度获取；2、避免缓冲区溢出；
                         3、减少字符串修改带来的内存重分配次数；4、惰性释放空间
 
@@ -95,6 +100,7 @@
 
 
 3、数据结构与数据类型的对应关系
+
     string  ： 整数集合、SDS、embstr
     list    ： ziplist、linkedlist
     set     ： intset、dict
@@ -102,16 +108,19 @@
     ZSet    ： 1、ziplist，2、skiplist与dict的结合，一个方便快速添加、删除、查找元素，一个保持集合有序
 
 4、redis持久化
+
     RDB：对整个redis数据库的备份，数据完整但速度慢
     AOF：多redis指令操作的记录，可增量备份。AOF还有重写功能，合并多条指令
 
 5、集群
+
     数据分片：redis集群一共有16384个哈希槽，根据集群节点数量，每个节点负责一部分槽位。
     主从复制：每一个节点配置主节点，以及从节点，在主节点宕机后，可选举从节点作为新的主节点。
     一致性：redis集群不能保证数据的强一致性，性能和一致性之间的权衡，只能保证最终一致性。
             主节点收到写指定并回复客户端后才会将写操作复制给从节点。
 
 6、事务
+
     MULTI指令开启一个事务
     EXEC指令出发并执行事务中的所有指令
     DISCARD指令清空事务队列，并放弃执行事务
@@ -122,6 +131,7 @@
 
 
 7、Redis哨兵（Sentinel）和集群分区（Cluster）
+
     作用： 1）监控主服务器和从服务器是否运行正常；
           2）被监控redis服务器出现故障时的发出提醒通知；
           3）自动故障迁移，当一个主服务器不能正常工作时，sentinel会从失效主服务器的从服务器中选择升级为主服务器，并将失效主
