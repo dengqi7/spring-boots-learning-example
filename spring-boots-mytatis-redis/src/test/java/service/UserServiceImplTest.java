@@ -89,6 +89,10 @@ public class UserServiceImplTest {
         /**
          * 不同的序列器的序列化结果展示：
          */
+        redisTemplate.multi();
+        redisTemplate.exec();
+        redisTemplate.discard();
+        redisTemplate.watch("");
 
         JdkSerializationRedisSerializer jdk = new JdkSerializationRedisSerializer();
         printBtyeToString("JdkSerialization-汉字:{}",jdk.serialize(userName));
